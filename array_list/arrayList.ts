@@ -25,32 +25,35 @@ export class ArrayList {
         this.length = 0;
         this.#data = {};
     }
-    private collapse() {
-        
-    }
+
     push<T>(elem: T) {
         this.#data[this.length] = elem;
         this.length += 1;
     }
+
     pop() {
         const elem = this.#data[this.length - 1];
         delete this.#data[this.length - 1];
         this.length -= 1;
         return elem;
     }
+
     get(index: number) {
         if (index >= this.length) {
             return undefined;
         }
         return this.#data[index];
     }
+
     delete(index: number){
-        const missingIndex = this.#data[index];
-        delete this.#data[index];
-        const lengthToIterate = this.length - index;
-        for (let i = index; i < this.#data.keys().length; i++) {
-            const element = array[i];
-            
+        if (index >= this.length) {
+            console.log(index);
+            return undefined;
         }
+        for (let i = index; i < this.length; i++) {
+            this.#data[i] = this.#data[i + 1];
+        }
+        delete this.#data[this.length - 1];
+        this.length -= 1;
     }
 }

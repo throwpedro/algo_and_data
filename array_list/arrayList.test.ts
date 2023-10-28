@@ -39,6 +39,7 @@ describe("ArrayList", function () {
       abcRange(26).map((character) => list.push(character));
       expect(list.get(27)).toEqual("z");
       expect(list.get(0)).toEqual("first");
+      expect(list.get(1)).toEqual("second");
       expect(list.get(9)).toEqual("h");
       list.pop();
       expect(list.get(list.length - 1)).toEqual("y");
