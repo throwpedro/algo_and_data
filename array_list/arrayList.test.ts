@@ -1,7 +1,6 @@
 import { test, expect, describe, beforeEach } from "bun:test";
 import { ArrayList } from "./arrayList";
-// unit tests
-// do not modify the below code
+
 describe("ArrayList", function () {
     const range = (length: number) =>
       [...Array(length).keys()];
