@@ -17,15 +17,40 @@ right - Node/object - the right node which itself may be another tree
 */
 export class Tree {
     root: Node | null;
-    nodes: Node[];
     constructor() {
         this.root = null;
-        this.nodes = [];
+    }
+
+    #find(num: number) {
+        if (this.root === null) {
+            return null;
+        }
+        let current: Node | null = this.root;
+        while (current !== null) {
+            if (num === current.value) {
+                return current;
+            }
+            if (num < current.value) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+        return null;
     }
 
     add(num: number) {
         if (this.root === null) {
             this.root = new Node(num);
+            return;
+        }
+        if (num < this.root.value) {
+            let current = this.root;
+            if (num < current.value) {
+
+            }
+            this.add(num);
+            this.root.left = new Node(num);
             return;
         }
     }
