@@ -24,77 +24,78 @@
 */
 
 export class LinkedList {
-    head: null | Node;
-    tail: null | Node;
-    length: number;
+  head: null | Node;
+  tail: null | Node;
+  length: number;
 
-    constructor() {
-      this.head = null;
-      this.tail = null;
-      this.length = 0;
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+  push(value: string) {
+    const node = new Node(value);
+    this.length += 1;
+    if (!this.head) {
+      this.head = node;
+    } else {
+      if (this.tail !== null) {
+        this.tail.next = node;
+      }
     }
-    push(value: string) {
-      const node = new Node(value);
-      this.length += 1;
-      if (!this.head) {
-        this.head = node;
+    this.tail = node;
+  }
+  pop() {
+    const node = this.delete(this.length - 1);
+    return node;
+  }
+  _find(index: number) {
+    if (index >= this.length) return null;
+    let current = this.head;
+    for (let i = 0; i < index; i++) {
+      current = current?.next!;
+    }
+    return current;
+  }
+  get(index: number) {
+    const found = this._find(index);
+    if (found === null) return null;
+    return this._find(index)?.value;
+  }
+  delete(index: number) {
+    if (index === 0) {
+      const head = this.head;
+      if (head) {
+        this.head = head.next;
       } else {
-        if (this.tail !== null) {
-          this.tail.next = node;
-        }
-      }
-      this.tail = node;
-    }
-    pop() {
-      const node = this.delete(this.length - 1);
-      return node;
-    }
-    _find(index: number) {
-      if (index >= this.length) return null;
-      let current = this.head;
-      for (let i = 0; i < index; i++) {
-        current = current?.next!;
-      }
-      return current;
-    }
-    get(index: number) {
-      const found = this._find(index);
-      if (found === null) return null;
-      return this._find(index)?.value;
-    }
-    delete(index: number) {
-      if (index === 0) {
-        const head = this.head;
-        if (head) {
-          this.head = head.next;
-        } else {
-          this.head = null;
-        }
-        this.length -= 1;
-        return head || null;
-      }
-      let node = this._find(index - 1);
-      if (!node) {
-        return null;
-      }
-      let toRemove = node?.next;
-      if (!toRemove) {
-        return null;
-      }
-      node.next = toRemove.next;
-      if (!node.next) {
-        this.head = toRemove;
+        this.head = null;
+        this.tail = null;
       }
       this.length -= 1;
-      return toRemove;
+      return head?.value || null;
     }
-  }
-  
-  class Node {
-    value: string;
-    next: null | Node;
-    constructor(value: string) {
-      this.value = value;
-      this.next = null;
+    let node = this._find(index - 1);
+    if (!node) {
+      return null;
     }
+    let toRemove = node.next;
+    if (!toRemove) {
+      return null;
+    }
+    node.next = toRemove.next;
+    if (!node.next) {
+      this.tail = node.next;
+    }
+    this.length -= 1;
+    return toRemove.value;
   }
+}
+
+class Node {
+  value: string;
+  next: null | Node;
+  constructor(value: string) {
+    this.value = value;
+    this.next = null;
+  }
+}
