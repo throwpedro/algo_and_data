@@ -16,63 +16,52 @@ right - Node/object - the right node which itself may be another tree
 
 */
 export class Tree {
-    root: Node | null;
     constructor() {
         this.root = null;
     }
 
-    #find(num: number) {
+    add(value) {
         if (this.root === null) {
-            return null;
+            this.root = new Node(value);
+            return;
         }
-        let current: Node | null = this.root;
-        while (current !== null) {
-            if (num === current.value) {
-                return current;
-            }
-            if (num < current.value) {
-                current = current.left;
+        let current = this.root;
+        while (true) {
+            if (value < current.value) {
+                // go left
+                if (current.left) {
+                    current = current.left;
+                } else {
+                    current.left = new Node(value);
+                    break;
+                }
             } else {
-                current = current.right;
+                // go right
+                if (current.right) {
+                    current = current.right;
+                } else {
+                    current.right = new Node(value);
+                    break;
+                }
             }
         }
-        return null;
-    }
-
-    add(num: number) {
-        if (this.root === null) {
-            this.root = new Node(num);
-            return;
-        }
-        if (num < this.root.value) {
-            let current = this.root;
-            if (num < current.value) {
-
-            }
-            this.add(num);
-            this.root.left = new Node(num);
-            return;
-        }
+        return this;
     }
 
     toObject() {
-        return this.root?.serialize() ?? null;
+        return this.root.serialize();
     }
 }
 
 class Node {
-    value: number;
-    left: Node | null;
-    right: Node | null;
-
-    constructor(value: number) {
+    constructor(value = null, left = null, right = null) {
         this.value = value;
-        this.left = null;
-        this.right = null;
+        this.left = left;
+        this.right = right;
     }
 
     serialize() {
-        const result = new Node(this.value);
+        const result = { value: this.value };
         result.left = this.left === null ? null : this.left.serialize();
         result.right = this.right === null ? null : this.right.serialize();
         return result;

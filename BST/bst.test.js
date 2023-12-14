@@ -8,7 +8,7 @@ describe("Binary Search Tree", function () {
         nums.map((num) => tree.add(num));
         const objs = tree.toObject();
 
-        expect(objs?.value).toEqual(3);
+        expect(objs.value).toEqual(3);
 
         expect(objs.left.value).toEqual(1);
         expect(objs.left.left).toBeNull();
