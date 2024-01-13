@@ -15,9 +15,9 @@ export const insertionSort = (items: number[]) => {
     for (let i = 1; i < n; i++) {
         let j = i;
         while (j > 0) {
-            if (items[j-1] > items[j]) {
-                let temp = items[j-1];
-                items[j-1] = items[j];
+            if (items[j - 1] > items[j]) {
+                let temp = items[j - 1];
+                items[j - 1] = items[j];
                 items[j] = temp;
             }
             j = j - 1;
